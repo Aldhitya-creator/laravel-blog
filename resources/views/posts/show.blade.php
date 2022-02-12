@@ -25,21 +25,21 @@
                 <td>{{ $post->description }}</td>
             </tr>
             <tr>
-                <th class="table-active">Categories</th>
-                <td>{{ $post->category->name }}</td>
+            <th class="table-active">Categories</th>
+                <td> <a href="/posts/categories/{{ $post->category->slug }}">{{ $post->category->name }}
+                </a></td>
             </tr>
             <tr>
                 <th class="table-active">Tags</th>
                 <td>
                 @foreach($post->tags as $tag)
-                <a href="#">{{ $tag->name}}</a>
-
+                <a class="primary" href="/posts/tags/{{ $tag->slug }}">#{{ $tag->name }}</a>
                 @endforeach
                 </td>
             </tr>
             <tr>
                 <th class="table-active">Thumbnail</th>
-                <td><img src="/images/{{ $post->thumbnail }}" width="400px"></td>
+                <td><img src="{{ asset($post->takeImage()) }}" width="400px"></td>
             </tr>
             <tr>
                 <th class="table-active">Slug</th>

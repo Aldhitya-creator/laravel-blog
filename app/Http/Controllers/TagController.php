@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     public function __construct()
     {
@@ -49,14 +49,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Tag $tag)
     {
-        $posts = $category->posts()->latest()->get();
-        
+        $posts = $tag->posts()->latest()->get();
         return view('posts.index', [
             'posts' => $posts,
-            'category' => $category,
-            'categories' => Category::get()
+            'tag' => $tag,
+            'tags' => Tag::get()
         ]);
     }
 

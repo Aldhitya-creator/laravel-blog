@@ -75,7 +75,7 @@
                 <select class="form-control select2  @error('tags') is-invalid @enderror" id="tags" name="tags[]" multiple="multiple">
                 <option disabled {{ (old('tags') ? '': 'selected')}}> -- Choose a Tags --</option>
                 @foreach ($tags as $tag)
-                <option value="{{ $tag->id }}" {{ (old('tags') == $tag->id ? 'selected' : '')}}>{{ $tag->name }}</option>
+                <option value="{{ $tag->id }}" {{ (collect(old('tags'))->contains($tag->id)) ? 'selected':'' }}>{{ $tag->name }}</option>
                     @endforeach
                 </select>
                 @if ($errors->has('tags'))

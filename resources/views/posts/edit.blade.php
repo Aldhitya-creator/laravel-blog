@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             @if($post->thumbnail)
-                                <img src="/images/{{ old('thumbnail') ?? $post->thumbnail }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="400px" class="img-thumbnail mb-2">
+                                <img src="{{ asset($post->takeImage()) }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="400px" class="img-thumbnail mb-2">
                             @else
                                 <p><em>- No Image -</em></p>
                             @endif
@@ -82,11 +82,13 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group mb-3">
                 <label for="tags">tags</label>
-                <select class="form-control select2  @error('tags') is-invalid @enderror" id="tags" name="tags[]" multiple="multiple">
+                <select class="form-control select2 @error('tags') is-invalid @enderror" id="tags" name="tags[]" multiple="multiple">
                 <option disabled {{ (old('tags') ? '': 'selected')}}> -- Choose a Tags --</option>
-                @foreach ($tags as $tag)
-                <option selected value="{{ $tag->id }}">{{ $tag->name }}</option>
-                    @endforeach
+                @foreach($tags as $tag)
+                <option value="{{ $tag->id }}"
+                    {{ ($post->tags()->pluck('id')->contains($tag->id)) ? 'selected' : '' }}
+                >{{ $tag->name }}</option>
+                @endforeach
                 </select>
                 @if ($errors->has('tags'))
                         <span class="text-danger">{{ $errors->first('tags') }}</span>

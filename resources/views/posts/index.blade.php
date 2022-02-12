@@ -43,6 +43,7 @@
                         <th width="20px" class="text-center">No</th>
                         <th>Title</th>
                         <th>Categories</th>
+                        <th>Tags</th>
                         <th width="280px"class="text-center">Action</th>
                         </tr>
                     </thead>
@@ -52,7 +53,12 @@
                         @foreach ($posts as $i => $post)
                         <td class="text-center">{{ ++$i }}</td>
                         <td>{{ $post->title }}</td>
-                        <td><a href="/posts/categories/{{ $post->category->slug }}">{{ $post->category->name }}</a></td>
+                       <td><a href="/posts/categories/{{ $post->category->slug }}"> <i class="bi bi-tag-fill">{{ $post->category->name }}</i></a></td>
+                        <td>
+								@foreach ($post->tags as $tag)
+						        	<a class="primary" href="/posts/tags/{{ $tag->slug }}">#{{ $tag->name }}</a>
+						        @endforeach
+					    </td>
                         <td class="text-center">
                         <form action="{{ route('posts.destroy',$post->slug) }}" method="POST">
                             <a class="btn btn-info btn-sm" href="{{ route('posts.show',$post->slug) }}">Show</a>
